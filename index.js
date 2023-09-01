@@ -27,7 +27,8 @@ const response = await fetch(` https://openapi.programming-hero.com/api/videos/c
 const data = await response.json();
 const videos = data?.data;
 console.log(videos);
-// condition if drawing click show no items 
+
+// condition if drawing click show There have no data found
 if(videos.length>0){
   const videoContainer = document.getElementById('card-container');
   document.getElementById('card-container').classList.add('grid');
@@ -47,7 +48,7 @@ if(videos.length>0){
     div.innerHTML=`
     <div class="card">
     <div class=" align-top w-full ">
-    <figure class="w-full h-40 flex align-top rounded-t-xl"><img src="${video.thumbnail}" alt="video" /></figure>
+    <figure class="w-full h-40 flex align-top rounded-2xl"><img src="${video.thumbnail}" alt="video" /></figure>
     </div>
     <div class="card-body px-8">
       <div class="flex gap-4 justify-start items-center">
@@ -57,7 +58,7 @@ if(videos.length>0){
            </div>
            <h2 class="card-title font-bold text-lg text-[#171717]">${video.title} </h2> 
       </div>
-      <div class="flex justify-start items-center lg:text-center text-left  lg:px-10 px-24">
+      <div class="flex justify-start items-center lg:text-center text-left  lg:px-10 md: md:px-16  px-24">
         <p class="text-sm font-normal text-[#111111B3]">${video.authors[0].profile_name} </p>
         <img class="" src="${video.authors[0].verified? video.authors[0].verified:'images/icon.svg'}" alt="" srcset="">
       
@@ -67,7 +68,7 @@ if(videos.length>0){
         <img src="" alt="">
        
       </div>
-      <h3 class="lg:pl-14 pl-24 font-normal text-sm">${video.others.views? video.others.views:'No views'} views</h3>
+      <h3 class="lg:pl-14 md:pl-16 pl-24 font-normal text-sm">${video.others.views? video.others.views:'No views'} views</h3>
     </div>
     </div>
           
