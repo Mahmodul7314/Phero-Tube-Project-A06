@@ -4,11 +4,11 @@ const handleCategory = async() =>{
 
    categoryItems = data.data;
    const tabContainer =document.getElementById('tab-container');
-    
+  
    categoryItems.forEach((tabCategory) => {
    const div = document.createElement('div');
    div.innerHTML =`
-   <button onclick=" loadVideos('${tabCategory.category_id}')" class="btn text-base text-[#252525B3]  font-semibold">${tabCategory.category}</button>
+   <button onclick=" loadVideos('${tabCategory.category_id}')" class="btn text-base text-[#252525B3]  lg:font-semibold font-normal" id="btn-category">${tabCategory.category}</button>
    
 
    `;
@@ -27,55 +27,73 @@ const response = await fetch(` https://openapi.programming-hero.com/api/videos/c
 const data = await response.json();
 const videos = data?.data;
 console.log(videos);
+// condition if drawing click show no items 
+if(videos.length>0){
+  const videoContainer = document.getElementById('card-container');
+  document.getElementById('card-container').classList.add('grid');
+  document.getElementById('card-container').classList.add('gap-4');
+  document.getElementById('card-container').classList.add('grid-cols-1');
+  document.getElementById('card-container').classList.add('md:grid-cols-2');
+  document.getElementById('card-container').classList.add('lg:grid-cols-4');
+ 
+ 
 
-const videoContainer = document.getElementById('card-container');
-videoContainer.innerHTML = "";
+  videoContainer.innerHTML = "";
+  
+  videos.forEach((video) =>{
+    const div = document.createElement('div');
+  
+  
+    div.innerHTML=`
+    <div class="card">
+    <div class=" align-top w-full ">
+    <figure class="w-full h-40 flex align-top rounded-t-xl"><img src="${video.thumbnail}" alt="video" /></figure>
+    </div>
+    <div class="card-body px-8">
+      <div class="flex gap-4 justify-start items-center">
+        <div class=" rounded-full">
+          <img class="w-10 h-10 rounded-full" src="${video.authors[0].profile_picture}" alt="" srcset="">
+     
+           </div>
+           <h2 class="card-title font-bold text-lg text-[#171717]">${video.title} </h2> 
+      </div>
+      <div class="flex justify-start items-center lg:text-center text-left  lg:px-10 px-24">
+        <p class="text-sm font-normal text-[#111111B3]">${video.authors[0].profile_name} </p>
+        <img class="" src="${video.authors[0].verified? video.authors[0].verified:'images/icon.svg'}" alt="" srcset="">
+      
+      </div>
+      <div class=" justify-left">
+        <h4></h4>
+        <img src="" alt="">
+       
+      </div>
+      <h3 class="lg:pl-14 pl-24 font-normal text-sm">${video.others.views? video.others.views:'No views'} views</h3>
+    </div>
+    </div>
+          
+    `;
+  
+    videoContainer.appendChild(div);
+  })
+  
 
-videos.forEach((video) =>{
+}else{
+  const videoContainer = document.getElementById('card-container');
+ videoContainer.removeAttribute('class')
+  
+  videoContainer.innerHTML = "";
   const div = document.createElement('div');
 
-
   div.innerHTML=`
-  <div class="card">
-  <div class=" align-top w-full ">
-  <figure class="w-full h-40 flex align-top rounded-t-xl"><img src="${video.thumbnail}" alt="video" /></figure>
-  </div>
-  <div class="card-body px-8">
-    <div class="flex gap-4 justify-start items-center">
-      <div class=" rounded-full">
-        <img class="w-10 h-10 rounded-full" src="${video.authors[0].profile_picture}" alt="" srcset="">
-   
-         </div>
-         <h2 class="card-title font-bold text-lg text-[#171717]">${video.title} </h2>
-       
-    </div>
-    <div class="flex justify-start items-center text-center px-10">
-      <p class="text-sm font-normal text-[#111111B3]">${video.authors[0].profile_name} </p>
-      <img class="" src="${video.authors[0].verified? video.authors[0].verified:'images/icon.svg'}" alt="" srcset="">
-    
-    </div>
-    <div class=" justify-left">
-      <h4></h4>
-      <img src="" alt="">
-     
-    </div>
-    <h3 class="pl-14 font-normal text-sm">${video.others.views? video.others.views:'No views'} views</h3>
+  <div class=" flex w-full mx-auto justify-center items-center "> 
+  <div>
+  <img class=" justify-center items-center mt-4 pl-20" src ="images/Icon.png" alt="" id="">
+  <h2 class="text-center text-3xl mt-4 font-bold">Oops!! Sorry, There is no <br> content here</h2>
   </div>
   </div>
-       
-  
-  
   `;
-
-
-
-
   videoContainer.appendChild(div);
-  if(videos.lenght<=0){
-  console.log('there have no data')
-
-  }
-})
+}
 
 
 
@@ -86,3 +104,4 @@ videos.forEach((video) =>{
 
 
 handleCategory();
+loadVideos('1000')
