@@ -91,7 +91,7 @@ if(videos.length>0){
   <div class=" flex w-full mx-auto justify-center items-center "> 
   <div>
   <img class=" justify-center items-center mt-4 pl-20" src ="images/Icon.png" alt="" id="">
-  <h2 class="text-center text-3xl mt-4 font-bold">Oops!! Sorry, There is no <br> content here</h2>
+  <h2 class="text-center lg:text-3xl text-2xl mt-4 font-bold">Oops!! Sorry, There is no <br> content here</h2>
   </div>
   </div>
   `;
