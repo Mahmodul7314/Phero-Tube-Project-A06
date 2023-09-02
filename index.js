@@ -8,7 +8,7 @@ const handleCategory = async() =>{
    categoryItems.forEach((tabCategory) => {
    const div = document.createElement('div');
    div.innerHTML =`
-   <button onclick=" loadVideos('${tabCategory.category_id}')" class="btn text-base text-[#252525B3]  lg:font-semibold font-normal" id="btn-category">${tabCategory.category}</button>
+   <button  onclick=" loadVideos('${tabCategory.category_id}')" class="btn text-base text-[#252525B3]  lg:font-semibold font-normal" id="btn-category">${tabCategory.category}</button>
    
 
    `;
@@ -20,13 +20,13 @@ const handleCategory = async() =>{
    
 }
 
+let timing = 0;
 //load video if the button clicked
 const loadVideos = async(categoryId) =>{
-//console.log(categoryId);
 const response = await fetch(` https://openapi.programming-hero.com/api/videos/category/${categoryId}`);
 const data = await response.json();
 const videos = data?.data;
-console.log(videos);
+// console.log(videos);
 
 // condition if drawing click show There have no data found
 if(videos.length>0){
@@ -43,11 +43,13 @@ if(videos.length>0){
   
   videos.forEach((video) =>{
     const div = document.createElement('div');
-  
-  
+    //timing
+    const timing =video.others.posted_date;
+    
     div.innerHTML=`
     <div class="card">
     <div class=" align-top w-full ">
+    <p class=""></p>
     <figure class="w-full h-40 flex align-top rounded-2xl"><img src="${video.thumbnail}" alt="video" /></figure>
     </div>
     <div class="card-body px-8">
@@ -73,7 +75,7 @@ if(videos.length>0){
     </div>
           
     `;
-  
+
     videoContainer.appendChild(div);
   })
   
@@ -99,6 +101,38 @@ if(videos.length>0){
 
 
 }
+
+
+//     //convert sec to hour minute
+// const convertSecToHM =(seconds)=>{
+//  const hours = Math.floor(seconds/3600) ;
+//  const minute = Math.floor((seconds % 3600)/60);
+//  return hours, minute;
+// };
+// const resultTime = convertSecToHM(timing);
+// console.log(resultTime);
+
+// click Blog button and show blog page
+
+const blogBtn =document.getElementById('blog-btn').addEventListener('click',function(){
+  window.location.href = 'blog.html';
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
